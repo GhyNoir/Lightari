@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe715b634c1c6e44bfb71b274bd91a7, type: 3}
+  m_Name: ItemDatabase
+  m_EditorClassIdentifier: 
+  baseItems:
+  - itemDatas:
+    - {fileID: 11400000, guid: 3ca3b060bbfccaf41b61d2d57613fc80, type: 2}
+    - {fileID: 11400000, guid: 4bd9e6b6a8b05dd4ebf0782e63e422ba, type: 2}
+    - {fileID: 11400000, guid: 17c1f96529ef6014eafc2aa678aa255a, type: 2}
+    - {fileID: 11400000, guid: 583f357df1e14514e80151b557101860, type: 2}
+    - {fileID: 11400000, guid: 7eb75bcf8f5fb684d9284749ab6ef57f, type: 2}
+    - {fileID: 11400000, guid: 1ce385b68bc608c46a4388aab2cc922b, type: 2}
+    - {fileID: 11400000, guid: 27d7ec51211f605449812f682679de35, type: 2}
+  - itemDatas:
+    - {fileID: 11400000, guid: 3ca3b060bbfccaf41b61d2d57613fc80, type: 2}
+  - itemDatas:
+    - {fileID: 11400000, guid: 3ca3b060bbfccaf41b61d2d57613fc80, type: 2}
+  weaponItems: []
+  specialItems: []
