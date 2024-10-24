@@ -121,6 +121,7 @@ public class EnemyControllor_1 : EnemyControllor
             if(PlayerControllor.instance.moveState == MoveState.dash)
             {
                 Dead();
+                CameraControllor.instance.CameraShake();
             }
         }
     }

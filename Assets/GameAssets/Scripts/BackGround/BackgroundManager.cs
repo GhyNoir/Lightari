@@ -5,7 +5,8 @@ using UnityEngine;
 public class BackgroundManager : MonoBehaviour
 {
     public static BackgroundManager instance;
-    public GameObject mainTempalte;
+    public GameObject battleTempalte;
+    public GameObject chaseTemplate;
     public GameObject colorInstractor;
     public Texture2D mainTemplateTex;
     public Material colorInstractorMAT;
@@ -23,7 +24,7 @@ public class BackgroundManager : MonoBehaviour
 
     void Start()
     {
-        mainTemplateTex = mainTempalte.GetComponent<SpriteRenderer>().sprite.texture;
+        //mainTemplateTex = mainTempalte.GetComponent<SpriteRenderer>().sprite.texture;
         colorInstractorMAT = colorInstractor.GetComponent<SpriteRenderer>().material;
     }
 
@@ -42,6 +43,48 @@ public class BackgroundManager : MonoBehaviour
             currentHealthRadius = Mathf.Lerp(currentHealthRadius, targetHealthRadius, 0.1f);
             //DrawCircle(mainTemplateTex,currentExpRadius,expColor);
             colorInstractorMAT.SetFloat("_Radius1", currentHealthRadius);
+        }
+
+        //显示 chase ？battle 场景下的物体
+        if (ChaseCellManager.instance.levelChase)
+        {
+            foreach (Transform child in battleTempalte.transform)
+            {
+                if (child.GetComponent<SpriteRenderer>() != null)
+                {
+                    child.GetComponent<SpriteRenderer>().color = new Color(
+                        child.GetComponent<SpriteRenderer>().color.r,
+                        child.GetComponent<SpriteRenderer>().color.g,
+                        child.GetComponent<SpriteRenderer>().color.b,
+                        Mathf.Lerp(child.GetComponent<SpriteRenderer>().color.a, 0, 0.1f));
+                }
+            }
+            battleTempalte.transform.GetChild(3).gameObject.SetActive(false);
+
+            foreach (Transform child in chaseTemplate.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (Transform child in battleTempalte.transform)
+            {
+                if (child.GetComponent<SpriteRenderer>() != null)
+                {
+                    child.GetComponent<SpriteRenderer>().color = new Color(
+                        child.GetComponent<SpriteRenderer>().color.r,
+                        child.GetComponent<SpriteRenderer>().color.g,
+                        child.GetComponent<SpriteRenderer>().color.b,
+                        Mathf.Lerp(child.GetComponent<SpriteRenderer>().color.a, 1, 0.1f));
+                }
+            }
+            battleTempalte.transform.GetChild(3).gameObject.SetActive(true);
+
+            foreach (Transform child in chaseTemplate.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
         }
     }
 

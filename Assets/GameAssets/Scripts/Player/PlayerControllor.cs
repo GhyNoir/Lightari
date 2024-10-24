@@ -33,6 +33,8 @@ public class PlayerControllor : MonoBehaviour
     //全局速度权重
     public bool isGlobalSpeedOverride;
     public float globalSpeed;
+    //子弹时间效果
+    public float bulletTimeTimer, bulletTimeInterval;
 
     private void Awake()
     {
@@ -158,6 +160,24 @@ public class PlayerControllor : MonoBehaviour
     public void SeprateSpark()
     {
 
+    }
+
+    //子弹时间效果
+    public void StartBulletTime()
+    {
+        StartCoroutine(BulletTime());
+    }
+
+    IEnumerator BulletTime()
+    {
+        bulletTimeTimer = bulletTimeInterval;
+        float defaultFixTime = Time.fixedDeltaTime;
+        Time.timeScale =0.01f;
+        Time.fixedDeltaTime = Time.timeScale * defaultFixTime;
+        yield return new WaitForSecondsRealtime(1);
+
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = Time.timeScale * defaultFixTime;
     }
 }
 

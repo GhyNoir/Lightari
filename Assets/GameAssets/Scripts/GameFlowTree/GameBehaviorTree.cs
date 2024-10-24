@@ -34,6 +34,23 @@ public class GameBehaviorTree :ScriptableObject
         return node;
     }
     */
+
+    //更新游戏流内的战斗内容
+    public void UpdateBattleNode(ActionNode battleContent)
+    {
+        GameFlowNode gameFlowNode = LevelManager.instance.GameFlowTree.rootNode.child as GameFlowNode;
+        for(int i = 0; i< gameFlowNode.children.Count; i++)
+        {
+            if(gameFlowNode.children[i].GetType() == typeof(BattleNode))
+            {
+                BattleNode battleNode = gameFlowNode.children[i] as BattleNode;
+                battleNode.children.Clear();
+                battleNode.children.Add(battleContent);
+
+                break;
+            }
+        }
+    }
     public Node CreateNodeInGame(Node node)
     {
         node.guid = GUID.Generate().ToString();

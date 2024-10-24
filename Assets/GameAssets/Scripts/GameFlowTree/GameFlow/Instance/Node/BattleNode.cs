@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BattleNode", menuName = "GameFlowNodes/BattleNode")]
-public class BattleNode : ActionNode
+public class BattleNode : CompositeNode
 {
     public string nodeName;
 
     public override void Reset()
     {
         started = false;
+        for(int i = 0; i < children.Count; i++)
+        {
+            children[i].Reset();
+        }
     }
     protected override void OnStart()
     {
+        for (int i = 0; i < children.Count; i++)
+        {
+            children[i].Reset();
+        }
+        /*
         LevelManager.instance.levelState = LevelState.battle;
 
         LevelManager.instance.startExp = LevelManager.instance.requiredExp;
@@ -32,46 +41,41 @@ public class BattleNode : ActionNode
         LevelManager.instance.currentLevel += 1;
 
         LevelManager.instance.levelPause = false;
+        */
     }
 
     protected override State OnUpdate()
     {
-
-        EnemyManager.instance.GenerateEnemy(LevelManager.instance.currentLevel);
-        SupplyManager.instance.GenerateSupply(LevelManager.instance.currentLevel);
-
-
-        //监测exp数值
-        if (Mathf.Abs(LevelManager.instance.currentExp - LevelManager.instance.requiredExp) <= 0.05f)
+        for(int i = 0; i < children.Count; i++)
         {
-            return State.Success;
-        }
-        if (Mathf.Abs(LevelManager.instance.currentExp - LevelManager.instance.targetExp) >= 0.01f)
-        {
-            LevelManager.instance.currentExp = Mathf.Lerp(LevelManager.instance.currentExp, LevelManager.instance.targetExp, 0.1f);
+            children[i].Update();
         }
 
-        //监测玩家生命
-        if(Mathf.Abs(LevelManager.instance.currentHealth - LevelManager.instance.requiredHealth) <= 0.05f)
+        for(int i = 0; i < children.Count; i++)
         {
-            //游戏结束
-            return State.Running;
+            if (children[i].state == State.Success)
+            {
+                return State.Success;
+            }
         }
-        if (Mathf.Abs(LevelManager.instance.currentHealth - LevelManager.instance.targetHealth) >= 0.01f)
-        {
-            LevelManager.instance.currentHealth = Mathf.Lerp(LevelManager.instance.currentHealth, LevelManager.instance.targetHealth, 0.1f);
-        }
-        return State.Running; 
+
+        return State.Running;
     }
 
     protected override void OnStop()
     {
         LevelManager.instance.levelPause = true;
 
+        //战斗后增加光能
+        ChaseCellManager.instance.playerPhotonNum += (3 + ChaseCellManager.instance.lightedHouseNum);
+        UIManager.instance.UpdatePhotonNumber();
+
         EnemyManager.instance.ResetScene();
         PlayerControllor.instance.rig.velocity = Vector2.zero;
 
-        //生成下一关内容结点
-
+        //战斗结束后更新关卡信息
+        ChaseCellManager.instance.GetCell(new Vector2(0,0)).transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = ChaseCellManager.instance.cellIcons[2];
+        ChaseCellManager.instance.GetCell(new Vector2(0, 0)).GetComponent<ChaseCellControllor>().hasCreature = true;
+        ChaseCellManager.instance.GetCell(new Vector2(0, 0)).GetComponent<ChaseCellControllor>().hasBattle = false;
     }
 }

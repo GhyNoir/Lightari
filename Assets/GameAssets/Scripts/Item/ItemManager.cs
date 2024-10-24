@@ -15,7 +15,7 @@ public class ItemManager : MonoBehaviour
     public List<ItemData> currentItemPool = new List<ItemData>();
     public List<ItemData> generatedItem = new List<ItemData>();
     public List<ItemData> selectedItem = new List<ItemData>();
-    public ItemData mouseOnItem;
+    public ItemData mouseOnItem, currentSelectedItem;
 
     public bool allowSelect, isSelected, selectAwardItem;
 

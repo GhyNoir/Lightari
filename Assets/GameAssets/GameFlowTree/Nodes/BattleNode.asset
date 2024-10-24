@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7cf22c79f51174abfa3b9745d159c4, type: 3}
   m_Name: BattleNode
   m_EditorClassIdentifier: 
-  state: 0
+  state: 2
   nodeType: 0
-  started: 1
+  started: 0
   guid: 
   level: 0
   order: 0
   position: {x: 0, y: 0}
+  children:
+  - {fileID: 11400000, guid: 0c8dbeb33faef834dbf40d0436f69677, type: 2}
   nodeName: 

@@ -16,11 +16,15 @@ public class LevelManager : MonoBehaviour
     public float startHealth, requiredHealth;
     public float currentHealth, targetHealth;
 
+    public float defaultFixTime;
+    public float currentTimeScale, targetTimeScale;
+
     public bool levelPause;
 
     private void Awake()
     {
         instance = this;
+        defaultFixTime = Time.fixedDeltaTime;
     }
     void Start()
     {
@@ -30,6 +34,12 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         GameFlowTree.Update();
+
+        //关卡内按Tab查看大地图
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            ChaseCellManager.instance.levelChase = !ChaseCellManager.instance.levelChase;
+        }
     }
 
     public void UpdateExp(float value)
@@ -50,6 +60,11 @@ public class LevelManager : MonoBehaviour
             targetHealth = requiredHealth;
         }
         BackgroundManager.instance.UpdateHealthRadius();
+    }
+
+    public void UpdateTimeScale(float value)
+    {
+        targetTimeScale = Mathf.Clamp01(value);
     }
 }
 

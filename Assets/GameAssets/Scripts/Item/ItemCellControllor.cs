@@ -28,6 +28,7 @@ public class ItemCellControllor : MonoBehaviour, IPointerEnterHandler, IPointerE
                     item.Apply();
                     item.generatedTime += 1;
                     ItemManager.instance.selectedItem.Add(item);
+                    ItemManager.instance.currentSelectedItem = item;
                     ItemManager.instance.isSelected = true;
                     selected = true;
                 }

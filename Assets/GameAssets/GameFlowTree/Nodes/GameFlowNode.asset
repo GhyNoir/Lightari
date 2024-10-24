@@ -22,4 +22,5 @@ MonoBehaviour:
   children:
   - {fileID: 11400000, guid: 91654833a0ce8534abaf814d9f408a13, type: 2}
   - {fileID: 11400000, guid: 78c5a12db31a7614dbf0fcfbffc708f0, type: 2}
+  - {fileID: 11400000, guid: 6d065b22463ecdb4ab8366d7d18974e5, type: 2}
   current: 0

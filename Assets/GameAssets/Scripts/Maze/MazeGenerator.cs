@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class MazeGenerator : MonoBehaviour
 {
     public int width, height;
+    public float leftBound, downBound;
     public Material brick;
+    public GameObject wallPrefeb;
     private int[,] Maze;
     private List<Vector3> pathMazes = new List<Vector3>();
     private Stack<Vector2> _tiletoTry = new Stack<Vector2>();
@@ -74,8 +76,9 @@ public class MazeGenerator : MonoBehaviour
             {
                 if (Maze[i, j] == 1)
                 {
-                    ptype = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    ptype.transform.position = new Vector3(i * ptype.transform.localScale.x, j * ptype.transform.localScale.y, 0);
+                    //ptype = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    ptype = Instantiate(wallPrefeb, Vector3.zero, Quaternion.identity);
+                    ptype.transform.position = new Vector3(i * ptype.transform.localScale.x - (width/2), j * ptype.transform.localScale.y - (height/2), 0); 
                     if (brick != null)
                     {
                         ptype.GetComponent<MeshRenderer>().material = brick;
@@ -124,11 +127,7 @@ public class MazeGenerator : MonoBehaviour
 
         return Maze;
     }
-    /// <summary>
-    /// Get all the prospective neighboring tiles
-    /// </summary>
-    /// <param name="centerTile">The tile to test</param>
-    /// <returns>All and any valid neighbors</returns>
+
     private List<Vector2> GetValidNeighbors(Vector2 centerTile)
     {
 

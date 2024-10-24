@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
             }
 
             //第五关生成boss1
-            if (level == 3)
+            if (level == 5)
             {
                 GameObject bossTemp = Instantiate(bossPrefebList[0], new Vector2(0, 0), Quaternion.identity);
 
