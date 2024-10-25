@@ -36,6 +36,8 @@ public class PlayerControllor : MonoBehaviour
     //子弹时间效果
     public float bulletTimeTimer, bulletTimeInterval;
 
+    public bool allowDash;
+
     private void Awake()
     {
         instance = this;

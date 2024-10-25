@@ -14,6 +14,7 @@ public class ChaseCellControllor : MonoBehaviour
 
     //该关卡内容结点
     public bool hasBattle, hasCreature;
+    public bool hasFinalBoss;
     public ActionNode levelContent;
 
     //chase移动相关

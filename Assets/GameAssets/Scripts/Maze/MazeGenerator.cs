@@ -5,17 +5,22 @@ using System.Collections.Generic;
 
 public class MazeGenerator : MonoBehaviour
 {
+    public float mazeScale;
     public int width, height;
     public float leftBound, downBound;
     public Material brick;
     public GameObject wallPrefeb;
     private int[,] Maze;
-    private List<Vector3> pathMazes = new List<Vector3>();
+    public List<Vector3> pathMazes = new List<Vector3>();
     private Stack<Vector2> _tiletoTry = new Stack<Vector2>();
     private List<Vector2> offsets = new List<Vector2> { new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0) };
     private System.Random rnd = new System.Random();
     private int _width, _height;
     private Vector2 _currentTile;
+
+    public GameObject exitPointPrefeb;
+    public List<GameObject> exitPoint = new List<GameObject>();
+
     public Vector2 CurrentTile
     {
         get { return _currentTile; }
@@ -52,10 +57,27 @@ public class MazeGenerator : MonoBehaviour
     {
         //Camera.main.orthographic = true;
         //Camera.main.orthographicSize = 30;
-        GenerateMaze();
+        //GenerateMaze();
+        //GenerateExitPoint();
     }
+    public void ResetMap()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        for(int i = 0; i < exitPoint.Count; i++)
+        {
+            Destroy(exitPoint[i].gameObject);
+        }
 
-    void GenerateMaze()
+        Array.Clear(Maze,0,Maze.Length);
+        pathMazes.Clear();
+        exitPoint.Clear();
+        _tiletoTry.Clear();
+        offsets = new List<Vector2> { new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0) };
+    }
+    public void GenerateMaze()
     {
         Maze = new int[width, height];
         for (int x = 0; x < width; x++)
@@ -78,7 +100,9 @@ public class MazeGenerator : MonoBehaviour
                 {
                     //ptype = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     ptype = Instantiate(wallPrefeb, Vector3.zero, Quaternion.identity);
-                    ptype.transform.position = new Vector3(i * ptype.transform.localScale.x - (width/2), j * ptype.transform.localScale.y - (height/2), 0); 
+                    
+                    ptype.transform.position = new Vector3((i * ptype.transform.localScale.x - (width/2)) * mazeScale, (j * ptype.transform.localScale.y - (height/2)) * mazeScale, 0);
+                    ptype.transform.localScale = Vector3.one * mazeScale;
                     if (brick != null)
                     {
                         ptype.GetComponent<MeshRenderer>().material = brick;
@@ -89,9 +113,14 @@ public class MazeGenerator : MonoBehaviour
                 {
                     pathMazes.Add(new Vector3(i, j, 0));
                 }
-
             }
         }
+    }
+
+    public void GenerateExitPoint()
+    {
+        int index = UnityEngine.Random.Range(0, pathMazes.Count);
+        exitPoint.Add(Instantiate(exitPointPrefeb, new Vector3((pathMazes[index].x - (width / 2)) * mazeScale, (pathMazes[index].y - (height / 2)) * mazeScale, 0), Quaternion.identity));
     }
 
     public int[,] CreateMaze()

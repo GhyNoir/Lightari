@@ -8,6 +8,7 @@ public class BackgroundManager : MonoBehaviour
     public GameObject battleTempalte;
     public GameObject chaseTemplate;
     public GameObject colorInstractor;
+    public List<GameObject> obstacles;
     public Texture2D mainTemplateTex;
     public Material colorInstractorMAT;
 
@@ -16,6 +17,8 @@ public class BackgroundManager : MonoBehaviour
 
     public float currentExpRadius, targetExpRadius;
     public float currentHealthRadius, targetHealthRadius;
+
+    public bool showObstacles;
 
     private void Awake()
     {
@@ -84,6 +87,22 @@ public class BackgroundManager : MonoBehaviour
             foreach (Transform child in chaseTemplate.transform)
             {
                 child.gameObject.SetActive(false);
+            }
+        }
+
+        //显示场地障碍物
+        if (showObstacles)
+        {
+            for(int i = 0; i < obstacles.Count; i++)
+            {
+                obstacles[i].SetActive(true);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < obstacles.Count; i++)
+            {
+                obstacles[i].SetActive(false);
             }
         }
     }

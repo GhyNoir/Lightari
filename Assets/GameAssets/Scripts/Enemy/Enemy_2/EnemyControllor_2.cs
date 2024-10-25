@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyControllor_2 : EnemyControllor
 {
     public Rigidbody2D rig;
-    public GameObject dashLineObj, spriteObj;
+    public GameObject dashLineObj, spriteObj, soundObj;
     private LineRenderer dashLine;
     public GameObject deadExplod;
 
@@ -175,6 +175,7 @@ public class EnemyControllor_2 : EnemyControllor
         spriteObj.SetActive(false);
         dashLineObj.SetActive(false);
         deadExplod.SetActive(true);
+        soundObj.SetActive(true);
     }
     public void CheckBonds()
     {
@@ -191,6 +192,7 @@ public class EnemyControllor_2 : EnemyControllor
             if (PlayerControllor.instance.moveState == MoveState.dash)
             {
                 Dead();
+                CameraControllor.instance.CameraShake();
             }
             else
             {

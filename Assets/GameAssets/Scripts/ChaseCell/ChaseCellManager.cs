@@ -71,7 +71,7 @@ public class ChaseCellManager : MonoBehaviour
                 {
                     GameObject cellTemp = Instantiate(cellPrefeb, cellPos, Quaternion.identity);
                     cellTemp.GetComponent<ChaseCellControllor>().targetPos = cellTemp.transform.position;
-                    cellTemp.GetComponent<ChaseCellControllor>().levelContent = levelContentNodes[0];
+                    cellTemp.GetComponent<ChaseCellControllor>().levelContent = levelContentNodes[1];
                     cellTemp.GetComponent<ChaseCellControllor>().hasBattle = true;
                     cellTemp.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = cellIcons[1];
                     cells.Add(cellTemp);
@@ -105,6 +105,14 @@ public class ChaseCellManager : MonoBehaviour
                 }
             }
         }
+
+        //生成最终boss关卡
+        int index = Random.Range(0,cells.Count+1);
+        cells[index].GetComponent<ChaseCellControllor>().hasFinalBoss = true;
+        cells[index].GetComponent<ChaseCellControllor>().levelContent = levelContentNodes[0];
+        cells[index].GetComponent<ChaseCellControllor>().hasBattle = true;
+        //GetCell(new Vector2(0 ,2) * cellSize).transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = cellIcons[3];
+        cells[index].transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = cellIcons[3];
     }
 
     /// <summary>

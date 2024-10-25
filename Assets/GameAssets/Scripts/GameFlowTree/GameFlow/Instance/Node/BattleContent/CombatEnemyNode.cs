@@ -25,6 +25,9 @@ public class CombatEnemyNode : ActionNode
 
         BackgroundManager.instance.UpdateExpRadius();
         BackgroundManager.instance.UpdateHealthRadius();
+        BackgroundManager.instance.showObstacles = true;
+
+        PlayerControllor.instance.transform.localScale = new Vector3(2, 2, 2);
 
         EnemyManager.instance.allowSpawn = true;
         LevelManager.instance.currentLevel += 1;

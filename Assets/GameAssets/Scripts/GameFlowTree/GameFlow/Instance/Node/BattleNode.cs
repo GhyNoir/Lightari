@@ -21,6 +21,7 @@ public class BattleNode : CompositeNode
         {
             children[i].Reset();
         }
+        BackgroundManager.instance.showObstacles = true;
         /*
         LevelManager.instance.levelState = LevelState.battle;
 

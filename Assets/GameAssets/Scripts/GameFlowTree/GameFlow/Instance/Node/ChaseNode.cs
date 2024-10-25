@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ChaseNode", menuName = "GameFlowNodes/ChaseNode")]
-public class ChaseDirectionNode : ActionNode
+public class ChaseNode : ActionNode
 {
 
     public override void Reset()
@@ -21,6 +21,8 @@ public class ChaseDirectionNode : ActionNode
         ChaseCellManager.instance.allowMove = true;
         //ChaseCellManager.instance.UpdateAllCells(UpdateRule.darken);
         ChaseCellManager.instance.UpdateCellLight(ChaseCellManager.instance.GetCell(new Vector2(0, 0)), 5);
+
+        LevelManager.instance.levelPause = true;
     }
 
     protected override State OnUpdate()

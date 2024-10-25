@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyControllor_1 : EnemyControllor
 {
     public Rigidbody2D rig;
-    public GameObject line1Obj, line2Obj, laserObj, spriteObj;
+    public GameObject line1Obj, line2Obj, laserObj, spriteObj,soundObj;
     private LineRenderer line1, line2;
     public GameObject deadExplod;
 
@@ -113,6 +113,7 @@ public class EnemyControllor_1 : EnemyControllor
         line2Obj.SetActive(false); 
         laserObj.SetActive(false);
         deadExplod.SetActive(true);
+        soundObj.SetActive(true);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

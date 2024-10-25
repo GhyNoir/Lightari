@@ -19,7 +19,9 @@ public class LevelManager : MonoBehaviour
     public float defaultFixTime;
     public float currentTimeScale, targetTimeScale;
 
+    public bool outMaze;
     public bool levelPause;
+    public bool levelEnd;
 
     private void Awake()
     {

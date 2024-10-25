@@ -36,29 +36,37 @@ public class EnemyManager : MonoBehaviour
     {
         if (allowSpawn)
         {
-            if (enemyList.Count < maxSpawn)
+            if (!ChaseCellManager.instance.boxOnCell.GetComponent<ChaseCellControllor>().hasFinalBoss)
             {
-                spawnTimer -= Time.deltaTime;
-                if (spawnTimer <= 0)
+                if (enemyList.Count < maxSpawn)
                 {
-                    int enemyIndex = Random.Range(0, enemyPrefebDatabase[0].enemyPrefebList.Count);
-                    GameObject enemyTemp = Instantiate(enemyPrefebDatabase[0].enemyPrefebList[enemyIndex],
-                        new Vector2(Random.Range(-1.7f, 1.7f), Random.Range(-1.7f, 1.7f)),
-                        Quaternion.Euler(0, 0, Random.Range(-180, 180)));
-                    enemyList.Add(enemyTemp);
-                    spawnTimer = spawnInterval;
+                    spawnTimer -= Time.deltaTime;
+                    if (spawnTimer <= 0)
+                    {
+                        int enemyIndex = Random.Range(0, enemyPrefebDatabase[0].enemyPrefebList.Count);
+                        GameObject enemyTemp = Instantiate(enemyPrefebDatabase[0].enemyPrefebList[enemyIndex],
+                            new Vector2(Random.Range(-1.7f, 1.7f), Random.Range(-1.7f, 1.7f)),
+                            Quaternion.Euler(0, 0, Random.Range(-180, 180)));
+                        enemyList.Add(enemyTemp);
+                        spawnTimer = spawnInterval;
+                    }
+                }
+
+                //第五关生成boss1
+                if (level > 0 && level % 3 == 0)
+                {
+                    GameObject bossTemp = Instantiate(bossPrefebList[0], new Vector2(0, 0), Quaternion.identity);
+
+                    allowSpawn = false;
                 }
             }
-
-            //第五关生成boss1
-            if (level == 5)
+            else
             {
-                GameObject bossTemp = Instantiate(bossPrefebList[0], new Vector2(0, 0), Quaternion.identity);
-
+                //生成最终boss
+                GameObject bossTemp = Instantiate(bossPrefebList[1], new Vector2(0, 0), Quaternion.identity);
                 allowSpawn = false;
             }
         }
-
     }
 }
 
